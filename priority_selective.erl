@@ -8,20 +8,18 @@
 % 3> process_info(self(), messages).
 % {messages,[{highest,1},{low,2},{lowest,3},{high,4},{low,5}]}
 % 4> priority_selective:queue().
-% [highest,high,low,low,lowest]
+% [{highest,1},{high,4},{low,2},{low,5},{lowest,3}]
 
 -module(priority_selective).
 -export([queue/0]).
 
-queue() ->
-  helper_queue([highest, high, lowest, low]).
-
-helper_queue([]) -> [];
-helper_queue(Priorities) ->
+queue() -> queue([highest, high, low, lowest]).
+queue([]) -> [];
+queue(Priorities) ->
   [Priority|Tail] = Priorities,
   receive
     {Priority, Message} ->
-      [{Priority, Message} | helper_queue(Priorities)]
+      [{Priority, Message} | queue(Priorities)]
     after 0 ->
-      helper_queue(Tail)
+      queue(Tail)
   end.
