@@ -1,7 +1,7 @@
 % > c(gen_area_listener).
 % {ok,gen_area_listener}
-% > c(circle_area).
-% {ok,circle_area}
+% > c(square_area).
+% {ok,square_area}
 % > f(Self), Self = square_area:init().
 % <0.101.0>
 % > Self ! {square, 5}.
