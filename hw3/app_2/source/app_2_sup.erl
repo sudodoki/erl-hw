@@ -7,11 +7,13 @@ start_link() ->
   supervisor:start_link(app_2_sup, []).
 
 init(_Args) ->
-    SupFlags = #{strategy => one_for_one, intensity => 1, period => 5},
-    ChildSpecs = [#{id => looper,
-                    start => {looper, start_link, []},
-                    restart => permanent,
-                    shutdown => brutal_kill,
-                    type => worker,
-                    modules => [looper]}],
-    {ok, {SupFlags, ChildSpecs}}.
+  {ok, {{one_for_one, 1, 5},
+        [{looper_instance,
+          {looper, start_link, []},
+          permanent,
+          5000,
+          worker,
+          [looper]}
+        ]
+      }}.
+
