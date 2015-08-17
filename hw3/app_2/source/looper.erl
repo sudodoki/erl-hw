@@ -2,7 +2,7 @@
 -export([start_link/0]).
 
 start_link() ->
-  PID = spawn(fun() -> loop() end),
+  PID = spawn_link(fun() -> loop() end),
   % io:format("Starting looper with PID of ~p~n", [PID]),
   register(looper, PID),
   {ok, PID}.
