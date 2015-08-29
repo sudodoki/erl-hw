@@ -1,3 +1,9 @@
+% application:start(app_3).
+% gen_server:call({global, key_value_storage}, {set, "123", "Lol"}).
+% gen_server:call({global, key_value_storage}, {get, "123"}).
+% server:set(this, "is Sparta").
+% server:get(this).
+
 -module(server).
 -behaviour(gen_server).
 -export([start_link/0, init/1, set/2, get/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2, code_change/3]).
